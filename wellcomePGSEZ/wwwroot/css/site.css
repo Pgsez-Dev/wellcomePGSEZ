@@ -1,0 +1,158 @@
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/*.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+*/
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+    direction: rtl;
+}
+
+/*body {
+    margin-bottom: 60px;
+}*/
+
+/*// Varibales*/
+/*:root {
+    --primary: #005cbb;
+    --radius: 8px;
+}*/
+
+/*// font-face-*/
+
+* {
+    font-family: iransans;
+}
+
+/*@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}*/
+
+/*.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #0a0f43;
+}*/
+
+
+/*body {
+    margin-bottom: 60px;
+}
+
+.has-bg {
+    background-color: #0a0f43
+}*/
+
+/*.slider_section {
+    padding: 16px;*/
+    /*    display: flex;*/
+    /*    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    /*position: relative;*/
+    /*    background-color: #0a0f43;*/
+/*}*/
+
+/*.home-header-light-blue {
+    left: 0;
+    top: 0;*/
+    /*        width: 150%;
+        height: 150%;*/
+    /*background-image: radial-gradient(closest-side at 50% 50%,#0080ff,#00000000);
+    transform: translateX(-50%) translateY(-50%)
+}
+
+.slider_section .row {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}*/
+
+/*    a:hover {
+        color: red;
+    }
+
+a {
+    color: #005cbb
+}*/
+/*
+.navbar-light .navbar-brand {
+    color: #005cbb;
+}
+
+.navbar-light .navbar-nav .nav-item :hover {
+    color: white;
+    background-color: var(--primary);
+    border-radius: 8px;
+}
+
+.navbar-light .navbar-nav .nav-item {
+    margin-left: 4px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #005cbb;
+    font-size: x-small;
+    border-radius: 8px;
+}
+
+
+.navbar-brand {
+    font-size: medium;
+}
+
+nav {
+    background-color: var(--primary);
+}
+
+.header-style {
+    background: #e9eefa;
+}*/
+
+.text-blue {
+    color: #0355cc;
+}
+
+.service-section {
+    display: flex;
+    /*    padding: 98px;*/
+    padding: 50px 0 50px 0;
+    background-color: white;
+    /*    background-image: url(../img/services-left-dec.png);*/
+}
+
+.service-container {
+    display: flex;
+    position: relative;
+    background-image: url(../img/services-left-dec.png);
+    /*    margin-top :-98px;*/
+    z-index: 2;
+}
+
+@font-face {
+    font-family: 'iransans';
+    src: url('../fonts/IranSans.woff') format('woff');
+}
+
+h1 {
+    font-size: 72px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+carousel-inner {
+}

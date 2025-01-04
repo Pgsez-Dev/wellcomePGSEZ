@@ -1,0 +1,20 @@
+﻿{
+   "ConnectionStringName": "dab-connection-string",
+   "Dacpac": null,
+   "DatabaseType": 3,
+   "ProjectPath": "D:\\Visual Studio Project\\wellcomePGSEZ\\wellcomePGSEZ",
+   "Tables": [
+      {
+         "Name": "[dbo].[department]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[phones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[softwares]",
+         "ObjectType": 0
+      }
+   ]
+}
