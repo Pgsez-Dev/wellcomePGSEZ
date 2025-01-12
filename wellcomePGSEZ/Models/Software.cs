@@ -11,9 +11,17 @@ public partial class Software
 
     public string SName { get; set; }
 
-    public string SAddress { get; set; }
+    public string SImageAddress { get; set; }
 
-    public string SImagePath { get; set; }
+    public string SDescription { get; set; }
 
-    public string SExplain { get; set; }
+    public string SLinkAddress { get; set; }
+
+    public int STypeId { get; set; }
+
+    public string STag { get; set; }
+
+    public bool? SStatus { get; set; }
+
+    public virtual Types SType { get; set; }
 }

@@ -12,9 +12,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
     [Area("Admin")]
     public class SoftwaresController : Controller
     {
-        private readonly PgsezServicesContext _context;
+        private readonly PgsezServiceContext _context;
 
-        public SoftwaresController(PgsezServicesContext context)
+        public SoftwaresController(PgsezServiceContext context)
         {
             _context = context;
         }
@@ -22,7 +22,8 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // GET: Admin/Softwares
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Softwares.ToListAsync());
+            var pgsezServiceContext = _context.Softwares.Include(s => s.SType);
+            return View(await pgsezServiceContext.ToListAsync());
         }
 
         // GET: Admin/Softwares/Details/5
@@ -34,6 +35,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             }
 
             var software = await _context.Softwares
+                .Include(s => s.SType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (software == null)
             {
@@ -46,6 +48,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // GET: Admin/Softwares/Create
         public IActionResult Create()
         {
+            ViewData["STypeId"] = new SelectList(_context.Types, "TId", "TId");
             return View();
         }
 
@@ -54,30 +57,15 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SName,SAddress,SImagePath,SExplain")] Software software , IFormFile SImagePath)
+        public async Task<IActionResult> Create([Bind("Id,SName,SImageAddress,SDescription,SLinkAddress,STypeId,STag,SStatus")] Software software)
         {
             if (ModelState.IsValid)
             {
-
-
-                if (SImagePath != null)
-                {
-
-                    software.SImagePath = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(SImagePath.FileName);
-
-                    string fn = Directory.GetCurrentDirectory();
-                    string path = Path.Combine(fn+"\\wwwroot\\images",software.SImagePath);
-
-                    using(var stream = new FileStream(path, FileMode.Create))
-                    {
-                        SImagePath.CopyTo(stream);
-                    }
-                }
-
                 _context.Add(software);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["STypeId"] = new SelectList(_context.Types, "TId", "TId", software.STypeId);
             return View(software);
         }
 
@@ -94,6 +82,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["STypeId"] = new SelectList(_context.Types, "TId", "TId", software.STypeId);
             return View(software);
         }
 
@@ -102,7 +91,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,SName,SAddress,SImagePath,SExplain")] Software software)
+        public async Task<IActionResult> Edit(short id, [Bind("Id,SName,SImageAddress,SDescription,SLinkAddress,STypeId,STag,SStatus")] Software software)
         {
             if (id != software.Id)
             {
@@ -129,6 +118,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["STypeId"] = new SelectList(_context.Types, "TId", "TId", software.STypeId);
             return View(software);
         }
 
@@ -141,6 +131,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             }
 
             var software = await _context.Softwares
+                .Include(s => s.SType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (software == null)
             {

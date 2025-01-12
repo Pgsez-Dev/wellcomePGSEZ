@@ -7,19 +7,19 @@ namespace wellcomePGSEZ.Models;
 
 public partial class Phone
 {
-    public short Id { get; set; }
+    public int PId { get; set; }
 
-    public string PhoneNumber { get; set; }
+    public string PProperty { get; set; }
 
-    public string PCode { get; set; }
+    public string PNumber { get; set; }
 
-    public string PName { get; set; }
+    public string PIpAddress { get; set; }
 
-    public byte? PDep { get; set; }
+    public byte PModel { get; set; }
 
-    public string PSerial { get; set; }
+    public string PUser { get; set; }
 
-    public int? PropertyNumber { get; set; }
+    public virtual Model PModelNavigation { get; set; }
 
-    public virtual Department PDepNavigation { get; set; }
+    public virtual User PUserNavigation { get; set; }
 }

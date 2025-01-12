@@ -1,7 +1,10 @@
-﻿@inject wellcomePGSEZ.Models.PgsezServicesContext _context;
+﻿@inject wellcomePGSEZ.Models.PgsezServiceContext _context;
 @{
     ViewData["Title"] = "Home Page";
 }
+@*
+
+
 <div class="hero_area">
     <section class="slider_section">
         <div id="customCarousel1" class="carousel slide" data-ride="carousel">
@@ -45,23 +48,27 @@
     </section><!-- end slider section -->
 
 </div>
+*@
 <!-- service section -->
-<section class="service_section layout_padding">
-    <div class="container">
-        <div class="heading_container">
-            <h2>
-                سرویس های در دسترس
-            </h2>
-            <p>
-                این سیستم جدید به گونه‌ای طراحی شده است که دسترسی به خدمات مورد نیاز شما را سریع‌تر، ساده‌تر، و قابل اعتمادتر از همیشه می‌سازد.
-            </p>
-        </div>
+
+
+<button id="toggleTheme">تغییر حالت</button>
+<section class="service_section layout_padding light-mode">
+    <div class="heading_container">
+        <h2>
+            سرویس های در دسترس
+        </h2>
+        <p>
+            این سیستم جدید به گونه‌ای طراحی شده است که دسترسی به خدمات مورد نیاز شما را سریع‌تر، ساده‌تر، و قابل اعتمادتر از همیشه می‌سازد.
+        </p>
+    </div>
+    <div class="container shadow-g">
         <div class="row flex-wrap">
             <div class="col-md-6 col-lg-3">
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s1.png" alt="">
+                            <img src="images/s1.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
@@ -85,7 +92,7 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s2.png" alt="">
+                            <img src="images/s2.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
@@ -109,7 +116,7 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s3.png" alt="">
+                            <img src="images/s3.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
@@ -133,14 +140,14 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s4.png" alt="">
+                            <img src="images/s4.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
-                               ایمیل سازمانی 
+                                ایمیل سازمانی
                             </h5>
                             <p>
-                                ارسال و دریافت ایمیل سازمانی 
+                                ارسال و دریافت ایمیل سازمانی
                             </p>
                             <a href="">
                                 <span>
@@ -158,14 +165,14 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s4.png" alt="">
+                            <img src="images/s4.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
                                 سامانه آموزش
                             </h5>
                             <p>
-                                سامانه کلاس های آموزشی 
+                                سامانه کلاس های آموزشی
                             </p>
                             <a href="">
                                 <span>
@@ -183,11 +190,11 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s4.png" alt="">
+                            <img src="images/s4.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
-                                وب سایت  
+                                وب سایت
                             </h5>
                             <p>
                                 اخبار، مناقصات و ...
@@ -208,7 +215,7 @@
                 <a href="test.com" target="_blank">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s4.png" alt="">
+                            <img src="images/s4.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
@@ -233,14 +240,14 @@
                 <a href="https://test.com" target="_self">
                     <div class="box">
                         <div class="img-box">
-                            <img src="images/s4.png" alt="">
+                            <img src="images/s4.png" loading="lazy" alt="">
                         </div>
                         <div class="detail-box">
                             <h5>
-                                سامانه مدیریت دانش 
+                                سامانه مدیریت دانش
                             </h5>
                             <p>
-                               ثبت و مشاهده دانش سازمانی 
+                                ثبت و مشاهده دانش سازمانی
                             </p>
                             <a href="">
                                 <span>
@@ -252,8 +259,8 @@
                     </div>
                 </a>
             </div>
-       
-        
+
+
             @{
                 var list = _context.Softwares.ToList();
             }
@@ -261,17 +268,17 @@
             @foreach (var item in list)
             {
                 <div class="col-md-6 col-lg-3">
-                    <a href="https://@item.SAddress" target="_blank">
+                    <a href="https://@item.SLinkAddress" target="_blank">
                         <div class="box">
                             <div class="img-box">
-                                <img src="images/@item.SImagePath" alt="">
+                                <img src="images/@item.SImageAddress" loading="lazy" alt="">
                             </div>
                             <div class="detail-box">
                                 <h5>
                                     @item.SName
                                 </h5>
                                 <p>
-                                    @item.SExplain
+                                    @item.SDescription
                                 </p>
                                 <a href="">
                                     <span>
@@ -283,7 +290,7 @@
                         </div>
                     </a>
                 </div>
-               
+
             }
         </div>
     </div>

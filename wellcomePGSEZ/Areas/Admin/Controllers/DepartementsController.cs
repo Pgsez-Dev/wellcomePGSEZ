@@ -7,87 +7,88 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using wellcomePGSEZ.Models;
 
-namespace wellcomePGSEZ.Views
+namespace wellcomePGSEZ.Areas.Admin.Controllers
 {
-    public class SoftwaresController : Controller
+    [Area("Admin")]
+    public class DepartementsController : Controller
     {
-        private readonly PgsezServicesContext _context;
+        private readonly PgsezServiceContext _context;
 
-        public SoftwaresController(PgsezServicesContext context)
+        public DepartementsController(PgsezServiceContext context)
         {
             _context = context;
         }
 
-        // GET: Softwares
+        // GET: Admin/Departements
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Softwares.ToListAsync());
+            return View(await _context.Departements.ToListAsync());
         }
 
-        // GET: Softwares/Details/5
-        public async Task<IActionResult> Details(short? id)
+        // GET: Admin/Departements/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var software = await _context.Softwares
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (software == null)
+            var departement = await _context.Departements
+                .FirstOrDefaultAsync(m => m.DId == id);
+            if (departement == null)
             {
                 return NotFound();
             }
 
-            return View(software);
+            return View(departement);
         }
 
-        // GET: Softwares/Create
+        // GET: Admin/Departements/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Softwares/Create
+        // POST: Admin/Departements/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SName,SAddress,SImagePath")] Software software)
+        public async Task<IActionResult> Create([Bind("DId,DName")] Departement departement)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(software);
+                _context.Add(departement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(software);
+            return View(departement);
         }
 
-        // GET: Softwares/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        // GET: Admin/Departements/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var software = await _context.Softwares.FindAsync(id);
-            if (software == null)
+            var departement = await _context.Departements.FindAsync(id);
+            if (departement == null)
             {
                 return NotFound();
             }
-            return View(software);
+            return View(departement);
         }
 
-        // POST: Softwares/Edit/5
+        // POST: Admin/Departements/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,SName,SAddress,SImagePath")] Software software)
+        public async Task<IActionResult> Edit(int id, [Bind("DId,DName")] Departement departement)
         {
-            if (id != software.Id)
+            if (id != departement.DId)
             {
                 return NotFound();
             }
@@ -96,12 +97,12 @@ namespace wellcomePGSEZ.Views
             {
                 try
                 {
-                    _context.Update(software);
+                    _context.Update(departement);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SoftwareExists(software.Id))
+                    if (!DepartementExists(departement.DId))
                     {
                         return NotFound();
                     }
@@ -112,45 +113,45 @@ namespace wellcomePGSEZ.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(software);
+            return View(departement);
         }
 
-        // GET: Softwares/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        // GET: Admin/Departements/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var software = await _context.Softwares
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (software == null)
+            var departement = await _context.Departements
+                .FirstOrDefaultAsync(m => m.DId == id);
+            if (departement == null)
             {
                 return NotFound();
             }
 
-            return View(software);
+            return View(departement);
         }
 
-        // POST: Softwares/Delete/5
+        // POST: Admin/Departements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var software = await _context.Softwares.FindAsync(id);
-            if (software != null)
+            var departement = await _context.Departements.FindAsync(id);
+            if (departement != null)
             {
-                _context.Softwares.Remove(software);
+                _context.Departements.Remove(departement);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SoftwareExists(short id)
+        private bool DepartementExists(int id)
         {
-            return _context.Softwares.Any(e => e.Id == id);
+            return _context.Departements.Any(e => e.DId == id);
         }
     }
 }

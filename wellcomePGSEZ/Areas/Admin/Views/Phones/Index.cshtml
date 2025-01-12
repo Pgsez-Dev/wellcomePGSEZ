@@ -13,22 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                @Html.DisplayNameFor(model => model.PProperty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PCode)
+                @Html.DisplayNameFor(model => model.PNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PName)
+                @Html.DisplayNameFor(model => model.PIpAddress)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PSerial)
+                @Html.DisplayNameFor(model => model.PModelNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PropertyNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PDepNavigation)
+                @Html.DisplayNameFor(model => model.PUserNavigation)
             </th>
             <th></th>
         </tr>
@@ -37,27 +34,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.PProperty)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PCode)
+                @Html.DisplayFor(modelItem => item.PNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PName)
+                @Html.DisplayFor(modelItem => item.PIpAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PSerial)
+                @Html.DisplayFor(modelItem => item.PModelNavigation.MName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PropertyNumber)
+                @Html.DisplayFor(modelItem => item.PUserNavigation.UId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PDepNavigation.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.PId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PId">Delete</a>
             </td>
         </tr>
 }

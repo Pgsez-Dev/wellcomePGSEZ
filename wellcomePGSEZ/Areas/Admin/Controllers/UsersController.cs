@@ -7,92 +7,93 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using wellcomePGSEZ.Models;
 
-namespace wellcomePGSEZ.Controllers
+namespace wellcomePGSEZ.Areas.Admin.Controllers
 {
-    public class PhonesController : Controller
+    [Area("Admin")]
+    public class UsersController : Controller
     {
-        private readonly PgsezServicesContext _context;
+        private readonly PgsezServiceContext _context;
 
-        public PhonesController(PgsezServicesContext context)
+        public UsersController(PgsezServiceContext context)
         {
             _context = context;
         }
 
-        // GET: Phones
+        // GET: Admin/Users
         public async Task<IActionResult> Index()
         {
-            var pgsezServicesContext = _context.Phones.Include(p => p.PDepNavigation);
-            return View(await pgsezServicesContext.ToListAsync());
+            var pgsezServiceContext = _context.Users.Include(u => u.UDep);
+            return View(await pgsezServiceContext.ToListAsync());
         }
 
-        // GET: Phones/Details/5
-        public async Task<IActionResult> Details(short? id)
+        // GET: Admin/Users/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var phone = await _context.Phones
-                .Include(p => p.PDepNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (phone == null)
+            var user = await _context.Users
+                .Include(u => u.UDep)
+                .FirstOrDefaultAsync(m => m.UId == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(phone);
+            return View(user);
         }
 
-        // GET: Phones/Create
+        // GET: Admin/Users/Create
         public IActionResult Create()
         {
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id");
+            ViewData["UDepId"] = new SelectList(_context.Departements, "DId", "DName");
             return View();
         }
 
-        // POST: Phones/Create
+        // POST: Admin/Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PhoneNumber,PCode,PName,PDep,PSerial,PropertyNumber")] Phone phone)
+        public async Task<IActionResult> Create([Bind("UId,UFirstName,ULastName,UPosition,UDepId")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(phone);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
-            return View(phone);
+            ViewData["UDepId"] = new SelectList(_context.Departements, "DId", "DName", user.UDepId);
+            return View(user);
         }
 
-        // GET: Phones/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        // GET: Admin/Users/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var phone = await _context.Phones.FindAsync(id);
-            if (phone == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
-            return View(phone);
+            ViewData["UDepId"] = new SelectList(_context.Departements, "DId", "DName", user.UDepId);
+            return View(user);
         }
 
-        // POST: Phones/Edit/5
+        // POST: Admin/Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,PhoneNumber,PCode,PName,PDep,PSerial,PropertyNumber")] Phone phone)
+        public async Task<IActionResult> Edit(string id, [Bind("UId,UFirstName,ULastName,UPosition,UDepId")] User user)
         {
-            if (id != phone.Id)
+            if (id != user.UId)
             {
                 return NotFound();
             }
@@ -101,12 +102,12 @@ namespace wellcomePGSEZ.Controllers
             {
                 try
                 {
-                    _context.Update(phone);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PhoneExists(phone.Id))
+                    if (!UserExists(user.UId))
                     {
                         return NotFound();
                     }
@@ -117,47 +118,47 @@ namespace wellcomePGSEZ.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
-            return View(phone);
+            ViewData["UDepId"] = new SelectList(_context.Departements, "DId", "DName", user.UDepId);
+            return View(user);
         }
 
-        // GET: Phones/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        // GET: Admin/Users/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var phone = await _context.Phones
-                .Include(p => p.PDepNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (phone == null)
+            var user = await _context.Users
+                .Include(u => u.UDep)
+                .FirstOrDefaultAsync(m => m.UId == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(phone);
+            return View(user);
         }
 
-        // POST: Phones/Delete/5
+        // POST: Admin/Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var phone = await _context.Phones.FindAsync(id);
-            if (phone != null)
+            var user = await _context.Users.FindAsync(id);
+            if (user != null)
             {
-                _context.Phones.Remove(phone);
+                _context.Users.Remove(user);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PhoneExists(short id)
+        private bool UserExists(string id)
         {
-            return _context.Phones.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UId == id);
         }
     }
 }

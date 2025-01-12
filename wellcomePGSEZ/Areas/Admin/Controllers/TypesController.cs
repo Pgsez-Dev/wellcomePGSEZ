@@ -10,85 +10,85 @@ using wellcomePGSEZ.Models;
 namespace wellcomePGSEZ.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class DepartmentsController : Controller
+    public class TypesController : Controller
     {
-        private readonly PgsezServicesContext _context;
+        private readonly PgsezServiceContext _context;
 
-        public DepartmentsController(PgsezServicesContext context)
+        public TypesController(PgsezServiceContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Departments
+        // GET: Admin/Types
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departments.ToListAsync());
+            return View(await _context.Types.ToListAsync());
         }
 
-        // GET: Admin/Departments/Details/5
-        public async Task<IActionResult> Details(byte? id)
+        // GET: Admin/Types/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Departments
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            var @type = await _context.Types
+                .FirstOrDefaultAsync(m => m.TId == id);
+            if (@type == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(@type);
         }
 
-        // GET: Admin/Departments/Create
+        // GET: Admin/Types/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Departments/Create
+        // POST: Admin/Types/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DName")] Department department)
+        public async Task<IActionResult> Create([Bind("TId,TType,TName")] Types @type)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(department);
+                _context.Add(@type);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(@type);
         }
 
-        // GET: Admin/Departments/Edit/5
-        public async Task<IActionResult> Edit(byte? id)
+        // GET: Admin/Types/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Departments.FindAsync(id);
-            if (department == null)
+            var @type = await _context.Types.FindAsync(id);
+            if (@type == null)
             {
                 return NotFound();
             }
-            return View(department);
+            return View(@type);
         }
 
-        // POST: Admin/Departments/Edit/5
+        // POST: Admin/Types/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,DName")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("TId,TType,TName")] Types @type)
         {
-            if (id != department.Id)
+            if (id != @type.TId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(department);
+                    _context.Update(@type);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.Id))
+                    if (!TypeExists(@type.TId))
                     {
                         return NotFound();
                     }
@@ -113,45 +113,45 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(@type);
         }
 
-        // GET: Admin/Departments/Delete/5
-        public async Task<IActionResult> Delete(byte? id)
+        // GET: Admin/Types/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Departments
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            var @type = await _context.Types
+                .FirstOrDefaultAsync(m => m.TId == id);
+            if (@type == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(@type);
         }
 
-        // POST: Admin/Departments/Delete/5
+        // POST: Admin/Types/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(byte id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
-            if (department != null)
+            var @type = await _context.Types.FindAsync(id);
+            if (@type != null)
             {
-                _context.Departments.Remove(department);
+                _context.Types.Remove(@type);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartmentExists(byte id)
+        private bool TypeExists(int id)
         {
-            return _context.Departments.Any(e => e.Id == id);
+            return _context.Types.Any(e => e.TId == id);
         }
     }
 }

@@ -12,9 +12,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
     [Area("Admin")]
     public class PhonesController : Controller
     {
-        private readonly PgsezServicesContext _context;
+        private readonly PgsezServiceContext _context;
 
-        public PhonesController(PgsezServicesContext context)
+        public PhonesController(PgsezServiceContext context)
         {
             _context = context;
         }
@@ -22,12 +22,12 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // GET: Admin/Phones
         public async Task<IActionResult> Index()
         {
-            var pgsezServicesContext = _context.Phones.Include(p => p.PDepNavigation);
-            return View(await pgsezServicesContext.ToListAsync());
+            var pgsezServiceContext = _context.Phones.Include(p => p.PModelNavigation).Include(p => p.PUserNavigation);
+            return View(await pgsezServiceContext.ToListAsync());
         }
 
         // GET: Admin/Phones/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -35,8 +35,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             }
 
             var phone = await _context.Phones
-                .Include(p => p.PDepNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.PModelNavigation)
+                .Include(p => p.PUserNavigation)
+                .FirstOrDefaultAsync(m => m.PId == id);
             if (phone == null)
             {
                 return NotFound();
@@ -48,7 +49,8 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // GET: Admin/Phones/Create
         public IActionResult Create()
         {
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id");
+            ViewData["PModel"] = new SelectList(_context.Models, "MId", "MName");
+            ViewData["PUser"] = new SelectList(_context.Users, "UId", "UId");
             return View();
         }
 
@@ -57,7 +59,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PhoneNumber,PCode,PName,PDep,PSerial,PropertyNumber")] Phone phone)
+        public async Task<IActionResult> Create([Bind("PId,PProperty,PNumber,PIpAddress,PModel,PUser")] Phone phone)
         {
             if (ModelState.IsValid)
             {
@@ -65,12 +67,13 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
+            ViewData["PModel"] = new SelectList(_context.Models, "MId", "MName", phone.PModel);
+            ViewData["PUser"] = new SelectList(_context.Users, "UId", "UId", phone.PUser);
             return View(phone);
         }
 
         // GET: Admin/Phones/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -82,7 +85,8 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
+            ViewData["PModel"] = new SelectList(_context.Models, "MId", "MName", phone.PModel);
+            ViewData["PUser"] = new SelectList(_context.Users, "UId", "UId", phone.PUser);
             return View(phone);
         }
 
@@ -91,9 +95,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,PhoneNumber,PCode,PName,PDep,PSerial,PropertyNumber")] Phone phone)
+        public async Task<IActionResult> Edit(int id, [Bind("PId,PProperty,PNumber,PIpAddress,PModel,PUser")] Phone phone)
         {
-            if (id != phone.Id)
+            if (id != phone.PId)
             {
                 return NotFound();
             }
@@ -107,7 +111,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PhoneExists(phone.Id))
+                    if (!PhoneExists(phone.PId))
                     {
                         return NotFound();
                     }
@@ -118,12 +122,13 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PDep"] = new SelectList(_context.Departments, "Id", "Id", phone.PDep);
+            ViewData["PModel"] = new SelectList(_context.Models, "MId", "MName", phone.PModel);
+            ViewData["PUser"] = new SelectList(_context.Users, "UId", "UId", phone.PUser);
             return View(phone);
         }
 
         // GET: Admin/Phones/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -131,8 +136,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             }
 
             var phone = await _context.Phones
-                .Include(p => p.PDepNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.PModelNavigation)
+                .Include(p => p.PUserNavigation)
+                .FirstOrDefaultAsync(m => m.PId == id);
             if (phone == null)
             {
                 return NotFound();
@@ -144,7 +150,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // POST: Admin/Phones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phone = await _context.Phones.FindAsync(id);
             if (phone != null)
@@ -156,9 +162,9 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PhoneExists(short id)
+        private bool PhoneExists(int id)
         {
-            return _context.Phones.Any(e => e.Id == id);
+            return _context.Phones.Any(e => e.PId == id);
         }
     }
 }

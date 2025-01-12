@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Delete</h1>
@@ -19,22 +18,40 @@
             @Html.DisplayFor(model => model.SName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SAddress)
+            @Html.DisplayNameFor(model => model.SImageAddress)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SAddress)
+            @Html.DisplayFor(model => model.SImageAddress)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SImagePath)
+            @Html.DisplayNameFor(model => model.SDescription)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SImagePath)
+            @Html.DisplayFor(model => model.SDescription)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SExplain)
+            @Html.DisplayNameFor(model => model.SLinkAddress)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SExplain)
+            @Html.DisplayFor(model => model.SLinkAddress)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.STag)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.STag)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SType.TId)
         </dd>
     </dl>
     

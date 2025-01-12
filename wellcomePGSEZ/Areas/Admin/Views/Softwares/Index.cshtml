@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Index</h1>
@@ -17,13 +16,22 @@
                 @Html.DisplayNameFor(model => model.SName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SAddress)
+                @Html.DisplayNameFor(model => model.SImageAddress)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SImagePath)
+                @Html.DisplayNameFor(model => model.SDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SExplain)
+                @Html.DisplayNameFor(model => model.SLinkAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.STag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SType)
             </th>
             <th></th>
         </tr>
@@ -35,13 +43,22 @@
                 @Html.DisplayFor(modelItem => item.SName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SAddress)
+                @Html.DisplayFor(modelItem => item.SImageAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SImagePath)
+                @Html.DisplayFor(modelItem => item.SDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SExplain)
+                @Html.DisplayFor(modelItem => item.SLinkAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SType.TId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

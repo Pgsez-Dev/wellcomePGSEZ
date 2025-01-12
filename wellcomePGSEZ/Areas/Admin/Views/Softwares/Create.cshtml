@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Create</h1>
@@ -19,19 +18,33 @@
                 <span asp-validation-for="SName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SAddress" class="control-label"></label>
-                <input asp-for="SAddress" class="form-control" />
-                <span asp-validation-for="SAddress" class="text-danger"></span>
+                <label asp-for="SImageAddress" class="control-label"></label>
+                <input asp-for="SImageAddress" class="form-control" />
+                <span asp-validation-for="SImageAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SImagePath" class="control-label"></label>
-                <input asp-for="SImagePath" type="file" class="form-control" />
-                <span asp-validation-for="SImagePath" class="text-danger"></span>
+                <label asp-for="SDescription" class="control-label"></label>
+                <input asp-for="SDescription" class="form-control" />
+                <span asp-validation-for="SDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SExplain" class="control-label"></label>
-                <input asp-for="SExplain" class="form-control" />
-                <span asp-validation-for="SExplain" class="text-danger"></span>
+                <label asp-for="SLinkAddress" class="control-label"></label>
+                <input asp-for="SLinkAddress" class="form-control" />
+                <span asp-validation-for="SLinkAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="STypeId" class="control-label"></label>
+                <select asp-for="STypeId" class ="form-control" asp-items="ViewBag.STypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="STag" class="control-label"></label>
+                <input asp-for="STag" class="form-control" />
+                <span asp-validation-for="STag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SStatus" class="control-label"></label>
+                <input asp-for="SStatus" class="form-control" />
+                <span asp-validation-for="SStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -44,3 +57,116 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<div class="container container-create">
+    <form>
+        <div class="row">
+            <h4>Account</h4>
+            <div class="input-group input-group-icon">
+                <input type="text" placeholder="Full Name" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <div class="input-group input-group-icon">
+                <input type="email" placeholder="Email Adress" />
+                <div class="input-icon"><i class="fa fa-envelope"></i></div>
+            </div>
+            <div class="input-group input-group-icon">
+                <input type="password" placeholder="Password" />
+                <div class="input-icon"><i class="fa fa-key"></i></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-half">
+                <h4>Date of Birth</h4>
+                <div class="input-group">
+                    <div class="col-third">
+                        <input type="text" placeholder="DD" />
+                    </div>
+                    <div class="col-third">
+                        <input type="text" placeholder="MM" />
+                    </div>
+                    <div class="col-third">
+                        <input type="text" placeholder="YYYY" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-half">
+                <h4>Gender</h4>
+                <div class="input-group">
+                    <input id="gender-male"
+                           type="radio"
+                           name="gender"
+                           value="male" />
+                    <label for="gender-male">Male</label>
+                    <input id="gender-female"
+                           type="radio"
+                           name="gender"
+                           value="female" />
+                    <label for="gender-female">Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h4>Payment Details</h4>
+            <div class="input-group">
+                <input id="payment-method-card"
+                       type="radio"
+                       name="payment-method"
+                       value="card"
+                       checked="true" />
+                <label for="payment-method-card">
+                    <span>
+                        <i class="fa fa-cc-visa"></i>
+                        Credit Card
+                    </span>
+                </label>
+                <input id="payment-method-paypal"
+                       type="radio"
+                       name="payment-method"
+                       value="paypal" />
+                <label for="payment-method-paypal">
+                    <span>
+                        <i class="fa fa-cc-paypal"></i>
+                        Paypal
+                    </span>
+                </label>
+            </div>
+            <div class="input-group input-group-icon">
+                <input type="text" placeholder="Card Number" />
+                <div class="input-icon"><i class="fa fa-credit-card"></i></div>
+            </div>
+            <div class="col-half">
+                <div class="input-group input-group-icon">
+                    <input type="text" placeholder="Card CVC" />
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                </div>
+            </div>
+            <div class="col-half">
+                <div class="input-group">
+                    <select>
+                        <option>01 Jan</option>
+                        <option>02 Jan</option>
+                    </select>
+                    <select>
+                        <option>2015</option>
+                        <option>2016</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h4>Terms and Conditions</h4>
+            <div class="input-group">
+                <input id="terms" type="checkbox" />
+                <label for="terms">
+                    I accept the terms and conditions for signing up to this
+                    service, and hereby confirm I have read the privacy policy.
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
