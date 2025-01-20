@@ -26,6 +26,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             return View(await pgsezServiceContext.ToListAsync());
         }
 
+
         // GET: Admin/Phones/Details/5
         public async Task<IActionResult> Details(int? id)
         {

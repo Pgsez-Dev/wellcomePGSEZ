@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using wellcomePGSEZ.Models;
@@ -7,7 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PgsezServiceContext>(
-       options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+       options => options.UseSqlServer
+       (builder.Configuration.GetConnectionString("DefaultConnection"))
+       
+       );
+builder.Services.AddDbContext<AuthDbContext>(
+       options => options.UseSqlServer
+       (builder.Configuration.GetConnectionString("AuthDbConnectionString"))
+
+       );
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +37,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "Admin",

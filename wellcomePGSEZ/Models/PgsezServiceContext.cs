@@ -8,12 +8,24 @@ namespace wellcomePGSEZ.Models;
 
 public partial class PgsezServiceContext : DbContext
 {
-    public PgsezServiceContext(DbContextOptions<PgsezServiceContext> options)
-        : base(options)
+    public PgsezServiceContext()
     {
     }
 
-    public virtual DbSet<Departement> Departements { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+       
+    }
+
+    public PgsezServiceContext(DbContextOptions<PgsezServiceContext> options)
+        : base(options)
+    {
+
+       
+    }
+
+    public virtual DbSet<Department> Departements { get; set; }
 
     public virtual DbSet<Model> Models { get; set; }
 
@@ -25,11 +37,12 @@ public partial class PgsezServiceContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("Latin1_General_100_CI_AS_SC_UTF8");
 
-        modelBuilder.Entity<Departement>(entity =>
+        modelBuilder.Entity<Department>(entity =>
         {
             entity.HasKey(e => e.DId);
 
@@ -150,6 +163,7 @@ public partial class PgsezServiceContext : DbContext
                 .IsRequired()
                 .HasMaxLength(20)
                 .HasColumnName("uFirstName");
+            entity.Property(e => e.UIsAdmin).HasColumnName("uIsAdmin");
             entity.Property(e => e.ULastName)
                 .IsRequired()
                 .HasMaxLength(40)

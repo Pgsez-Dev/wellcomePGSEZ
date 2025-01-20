@@ -55,10 +55,11 @@
 <button id="toggleTheme">تغییر حالت</button>
 <section class="service_section layout_padding light-mode">
     <div class="heading_container">
-        <h2>
+       
+        <h2 class="wow animate__animated animate__fadeInUp data-wow-delay=1s data-wow-duration=1s ">
             سرویس های در دسترس
         </h2>
-        <p>
+        <p class="wow animate__animated animate__fadeInUp data-wow-delay=2s data-wow-duration=1s" >
             این سیستم جدید به گونه‌ای طراحی شده است که دسترسی به خدمات مورد نیاز شما را سریع‌تر، ساده‌تر، و قابل اعتمادتر از همیشه می‌سازد.
         </p>
     </div>
@@ -66,7 +67,7 @@
         <div class="row flex-wrap">
             <div class="col-md-6 col-lg-3">
                 <a href="test.com" target="_blank">
-                    <div class="box">
+                    <div class="box hvr-sweep-to-top">
                         <div class="img-box">
                             <img src="images/s1.png" loading="lazy" alt="">
                         </div>
@@ -259,7 +260,7 @@
                     </div>
                 </a>
             </div>
-
+    
 
             @{
                 var list = _context.Softwares.ToList();
@@ -267,25 +268,45 @@
 
             @foreach (var item in list)
             {
+                
+
+
                 <div class="col-md-6 col-lg-3">
-                    <a href="https://@item.SLinkAddress" target="_blank">
-                        <div class="box">
-                            <div class="img-box">
-                                <img src="images/@item.SImageAddress" loading="lazy" alt="">
+                    <a href="@item.SLinkAddress" target="_blank">
+                        @* <div class="box"> *@
+                        @*     <div class="img-box"> *@
+                        @*         <img src="images/@item.SImageAddress" loading="lazy" alt=""> *@
+                        @*     </div> *@
+                        @*     <div class="detail-box"> *@
+                        @*         <h5> *@
+                        @*             @item.SName *@
+                        @*         </h5> *@
+                        @*         <p> *@
+                        @*             @item.SDescription *@
+                        @*         </p> *@
+                        @*         <a href=""> *@
+                        @*             <span> *@
+                        @*                 ورود *@
+                        @*             </span> *@
+                        @*             <i class="fa fa-long-arrow-right" aria-hidden="true"></i> *@
+                        @*         </a> *@
+                        @*     </div> *@
+                        @* </div> *@
+
+                        <div class="card-service wow animate__animated animate__fadeInUp ">
+                            <div class="header">
+                                <img src="/images/service-1.svg" alt="">
                             </div>
-                            <div class="detail-box">
-                                <h5>
-                                    @item.SName
-                                </h5>
-                                <p>
-                                    @item.SDescription
-                                </p>
-                                <a href="">
+                            <div class="body">
+                                <h5 class="text-secondary">@item.SName</h5>
+                                <p>@item.SDescription</p>
+                              <p>
                                     <span>
                                         ورود
                                     </span>
                                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                </a>
+                              </p>
+                           
                             </div>
                         </div>
                     </a>
@@ -297,4 +318,9 @@
 
 
 </section>
+
+@section Scripts{
+    <script src="~/js/theme.js"></script>
+    <script src="~/js/wow.min.js"></script>
+}
 

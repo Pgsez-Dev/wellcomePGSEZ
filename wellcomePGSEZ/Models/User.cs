@@ -17,7 +17,9 @@ public partial class User
 
     public int? UDepId { get; set; }
 
+    public bool? UIsAdmin { get; set; }
+
     public virtual ICollection<Phone> Phones { get; set; } = new List<Phone>();
 
-    public virtual Departement UDep { get; set; }
+    public virtual Department UDep { get; set; }
 }

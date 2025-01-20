@@ -19,12 +19,25 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Softwares
+       // GET: Admin/Softwares
         public async Task<IActionResult> Index()
         {
             var pgsezServiceContext = _context.Softwares.Include(s => s.SType);
             return View(await pgsezServiceContext.ToListAsync());
         }
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    var softwares = await _context.Softwares.ToListAsync();
+
+        //    foreach (var software in softwares)
+        //    {
+        //        await _context.Entry(software).Reference(s => s.SType).LoadAsync();
+        //    }
+
+        //    return View(softwares);
+        //}
+
 
         // GET: Admin/Softwares/Details/5
         public async Task<IActionResult> Details(short? id)

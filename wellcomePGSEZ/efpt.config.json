@@ -3,7 +3,7 @@
    "ContextClassName": "PgsezServicesContext",
    "ContextNamespace": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": false,
+   "IncludeConnectionString": true,
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": "Models",
@@ -15,15 +15,27 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[department]",
+         "Name": "[dbo].[Departements]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[phones]",
+         "Name": "[dbo].[Models]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[softwares]",
+         "Name": "[dbo].[Phones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Softwares]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Types]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
          "ObjectType": 0
       }
    ],

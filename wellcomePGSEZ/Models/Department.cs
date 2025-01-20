@@ -7,9 +7,9 @@ namespace wellcomePGSEZ.Models;
 
 public partial class Department
 {
-    public byte Id { get; set; }
+    public int DId { get; set; }
 
     public string DName { get; set; }
 
-    public virtual ICollection<Phone> Phones { get; set; } = new List<Phone>();
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

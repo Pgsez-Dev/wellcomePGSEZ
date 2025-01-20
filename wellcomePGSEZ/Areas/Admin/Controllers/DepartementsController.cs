@@ -54,7 +54,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DId,DName")] Departement departement)
+        public async Task<IActionResult> Create([Bind("DId,DName")] Department departement)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace wellcomePGSEZ.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DId,DName")] Departement departement)
+        public async Task<IActionResult> Edit(int id, [Bind("DId,DName")] Department departement)
         {
             if (id != departement.DId)
             {
